@@ -1,24 +1,56 @@
-# Compiled class file
-*.class
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
 
-# Log file
-*.log
+public class PasswordGenerator {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        List<Character> letters = new ArrayList<>();
+        List<Character> numbers = new ArrayList<>();
+        List<Character> symbols = new ArrayList<>();
 
-# BlueJ files
-*.ctxt
+        for (char c = 'a'; c <= 'z'; c++) {
+            letters.add(c);
+        }
+        for (char c = 'A'; c <= 'Z'; c++) {
+            letters.add(c);
+        }
+        for (char c = '0'; c <= '9'; c++) {
+            numbers.add(c);
+        }
+        Collections.addAll(symbols, '!', '#', '$', '%', '&', '(', ')', '*', '+');
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+        System.out.println("Welcome to the Java Password Generator!");
+        System.out.print("How many letters would you like in your password? ");
+        int nrLetters = scanner.nextInt();
+        System.out.print("How many symbols would you like? ");
+        int nrSymbols = scanner.nextInt();
+        System.out.print("How many numbers would you like? ");
+        int nrNumbers = scanner.nextInt();
 
-# Package Files #
-*.jar
-*.war
-*.nar
-*.ear
-*.zip
-*.tar.gz
-*.rar
+        List<Character> passwordList = new ArrayList<>();
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-replay_pid*
+        for (int i = 0; i < nrLetters; i++) {
+            passwordList.add(letters.get(new Random().nextInt(letters.size())));
+        }
+
+        for (int i = 0; i < nrSymbols; i++) {
+            passwordList.add(symbols.get(new Random().nextInt(symbols.size())));
+        }
+
+        for (int i = 0; i < nrNumbers; i++) {
+            passwordList.add(numbers.get(new Random().nextInt(numbers.size())));
+        }
+
+        Collections.shuffle(passwordList);
+
+        StringBuilder password = new StringBuilder();
+        for (char character : passwordList) {
+            password.append(character);
+        }
+
+        System.out.println("Your password is: " + password);
+    }
+}
